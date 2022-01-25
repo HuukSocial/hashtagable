@@ -1,13 +1,13 @@
 import 'dart:ui';
 
+import 'package:beusocial/shared/forks/hashtag_mention/lib/composer/composer.dart';
+import 'package:beusocial/shared/forks/hashtag_mention/lib/detector/detector.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:hashtagable/composer/composer.dart';
-import 'package:hashtagable/detector/detector.dart';
 
 /// Show decorated tagged text while user is inputting text.
 ///
@@ -142,7 +142,7 @@ class HashTagEditableText extends EditableText {
           cursorHeight: cursorHeight,
         );
 
-  final ValueChanged<String>? onDetectionTyped;
+  final Function(String, TextRange)? onDetectionTyped;
 
   final VoidCallback? onDetectionFinished;
 
@@ -169,9 +169,10 @@ class HashTagEditableTextState extends EditableTextState {
   void initState() {
     super.initState();
     detector = Detector(
-        textStyle: widget.style,
-        decoratedStyle: widget.decoratedStyle,
-        decorateAtSign: widget.decorateAtSign);
+      textStyle: widget.style,
+      decoratedStyle: widget.decoratedStyle,
+      decorateAtSign: widget.decorateAtSign,
+    );
     widget.controller.addListener(() {
       _onValueUpdated.call();
     });
