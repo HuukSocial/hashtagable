@@ -356,9 +356,10 @@ class HashTagTextField extends StatefulWidget {
     this.expands = false,
     this.maxLength,
     @Deprecated(
-        'Use maxLengthEnforcement parameter which provides more specific '
-        'behavior related to the maxLength limit. '
-        'This feature was deprecated after v1.25.0-5.0.pre.')
+      'Use maxLengthEnforcement parameter which provides more specific '
+      'behavior related to the maxLength limit. '
+      'This feature was deprecated after v1.25.0-5.0.pre.',
+    )
         this.maxLengthEnforced = true,
     this.maxLengthEnforcement,
     this.onChanged,
@@ -403,17 +404,22 @@ class HashTagTextField extends StatefulWidget {
           !expands || (maxLines == null && minLines == null),
           'minLines and maxLines must be null when expands is true.',
         ),
-        assert(!obscureText || maxLines == 1,
-            'Obscured fields cannot be multiline.'),
-        assert(maxLength == null ||
-            maxLength == HashTagTextField.noMaxLength ||
-            maxLength > 0),
+        assert(
+          !obscureText || maxLines == 1,
+          'Obscured fields cannot be multiline.',
+        ),
+        assert(
+          maxLength == null ||
+              maxLength == HashTagTextField.noMaxLength ||
+              maxLength > 0,
+        ),
         // Assert the following instead of setting it directly to avoid surprising the user by silently changing the value they set.
         assert(
-            !identical(textInputAction, TextInputAction.newline) ||
-                maxLines == 1 ||
-                !identical(keyboardType, TextInputType.text),
-            'Use keyboardType TextInputType.multiline when using TextInputAction.newline on a multiline TextField.'),
+          !identical(textInputAction, TextInputAction.newline) ||
+              maxLines == 1 ||
+              !identical(keyboardType, TextInputType.text),
+          'Use keyboardType TextInputType.multiline when using TextInputAction.newline on a multiline TextField.',
+        ),
         keyboardType = keyboardType ??
             (maxLines == 1 ? TextInputType.text : TextInputType.multiline),
         toolbarOptions = toolbarOptions ??
@@ -430,7 +436,7 @@ class HashTagTextField extends StatefulWidget {
                   )),
         super(key: key);
 
-  final ValueChanged<String>? onDetectionTyped;
+  final Function(String, TextRange)? onDetectionTyped;
 
   final VoidCallback? onDetectionFinished;
 
@@ -609,9 +615,11 @@ class HashTagTextField extends StatefulWidget {
   ///
   /// If true, prevents the field from allowing more than [maxLength]
   /// characters.
-  @Deprecated('Use maxLengthEnforcement parameter which provides more specific '
-      'behavior related to the maxLength limit. '
-      'This feature was deprecated after v1.25.0-5.0.pre.')
+  @Deprecated(
+    'Use maxLengthEnforcement parameter which provides more specific '
+    'behavior related to the maxLength limit. '
+    'This feature was deprecated after v1.25.0-5.0.pre.',
+  )
   final bool maxLengthEnforced;
 
   /// Determines how the [maxLength] limit should be enforced.
@@ -817,94 +825,201 @@ class HashTagTextField extends StatefulWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<TextEditingController>(
-        'controller', controller,
-        defaultValue: null));
-    properties.add(DiagnosticsProperty<FocusNode>('focusNode', focusNode,
-        defaultValue: null));
+    properties.add(
+      DiagnosticsProperty<TextEditingController>(
+        'controller',
+        controller,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<FocusNode>(
+        'focusNode',
+        focusNode,
+        defaultValue: null,
+      ),
+    );
     properties
         .add(DiagnosticsProperty<bool>('enabled', enabled, defaultValue: null));
-    properties.add(DiagnosticsProperty<InputDecoration>(
-        'decoration', decoration,
-        defaultValue: const InputDecoration()));
-    properties.add(DiagnosticsProperty<TextInputType>(
-        'keyboardType', keyboardType,
-        defaultValue: TextInputType.text));
-    properties.add(DiagnosticsProperty<TextStyle>('style', basicStyle,
-        defaultValue: null));
     properties.add(
-        DiagnosticsProperty<bool>('autofocus', autofocus, defaultValue: false));
-    properties.add(DiagnosticsProperty<String>(
-        'obscuringCharacter', obscuringCharacter,
-        defaultValue: '•'));
-    properties.add(DiagnosticsProperty<bool>('obscureText', obscureText,
-        defaultValue: false));
-    properties.add(DiagnosticsProperty<bool>('autocorrect', autocorrect,
-        defaultValue: true));
-    properties.add(EnumProperty<SmartDashesType>(
-        'smartDashesType', smartDashesType,
+      DiagnosticsProperty<InputDecoration>(
+        'decoration',
+        decoration,
+        defaultValue: const InputDecoration(),
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<TextInputType>(
+        'keyboardType',
+        keyboardType,
+        defaultValue: TextInputType.text,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<TextStyle>(
+        'style',
+        basicStyle,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<bool>('autofocus', autofocus, defaultValue: false),
+    );
+    properties.add(
+      DiagnosticsProperty<String>(
+        'obscuringCharacter',
+        obscuringCharacter,
+        defaultValue: '•',
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<bool>(
+        'obscureText',
+        obscureText,
+        defaultValue: false,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<bool>('autocorrect', autocorrect, defaultValue: true),
+    );
+    properties.add(
+      EnumProperty<SmartDashesType>(
+        'smartDashesType',
+        smartDashesType,
         defaultValue:
-            obscureText ? SmartDashesType.disabled : SmartDashesType.enabled));
-    properties.add(EnumProperty<SmartQuotesType>(
-        'smartQuotesType', smartQuotesType,
+            obscureText ? SmartDashesType.disabled : SmartDashesType.enabled,
+      ),
+    );
+    properties.add(
+      EnumProperty<SmartQuotesType>(
+        'smartQuotesType',
+        smartQuotesType,
         defaultValue:
-            obscureText ? SmartQuotesType.disabled : SmartQuotesType.enabled));
-    properties.add(DiagnosticsProperty<bool>(
-        'enableSuggestions', enableSuggestions,
-        defaultValue: true));
+            obscureText ? SmartQuotesType.disabled : SmartQuotesType.enabled,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<bool>(
+        'enableSuggestions',
+        enableSuggestions,
+        defaultValue: true,
+      ),
+    );
     properties.add(IntProperty('maxLines', maxLines, defaultValue: 1));
     properties.add(IntProperty('minLines', minLines, defaultValue: null));
     properties.add(
-        DiagnosticsProperty<bool>('expands', expands, defaultValue: false));
-    properties.add(IntProperty('maxLength', maxLength, defaultValue: null));
-    properties.add(FlagProperty('maxLengthEnforced',
+      DiagnosticsProperty<bool>('expands', expands, defaultValue: false),
+    );
+    properties.add(
+      IntProperty('maxLength', maxLength, defaultValue: null),
+    );
+    properties.add(
+      FlagProperty(
+        'maxLengthEnforced',
         // ignore: deprecated_member_use_from_same_package
         value: maxLengthEnforced,
         defaultValue: true,
-        ifFalse: 'maxLength not enforced'));
-    properties.add(EnumProperty<MaxLengthEnforcement>(
-        'maxLengthEnforcement', maxLengthEnforcement,
-        defaultValue: null));
-    properties.add(EnumProperty<TextInputAction>(
-        'textInputAction', textInputAction,
-        defaultValue: null));
-    properties.add(EnumProperty<TextCapitalization>(
-        'textCapitalization', textCapitalization,
-        defaultValue: TextCapitalization.none));
-    properties.add(EnumProperty<TextAlign>('textAlign', textAlign,
-        defaultValue: TextAlign.start));
-    properties.add(DiagnosticsProperty<TextAlignVertical>(
-        'textAlignVertical', textAlignVertical,
-        defaultValue: null));
-    properties.add(EnumProperty<TextDirection>('textDirection', textDirection,
-        defaultValue: null));
+        ifFalse: 'maxLength not enforced',
+      ),
+    );
+    properties.add(
+      EnumProperty<MaxLengthEnforcement>(
+        'maxLengthEnforcement',
+        maxLengthEnforcement,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      EnumProperty<TextInputAction>(
+        'textInputAction',
+        textInputAction,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      EnumProperty<TextCapitalization>(
+        'textCapitalization',
+        textCapitalization,
+        defaultValue: TextCapitalization.none,
+      ),
+    );
+    properties.add(
+      EnumProperty<TextAlign>(
+        'textAlign',
+        textAlign,
+        defaultValue: TextAlign.start,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<TextAlignVertical>(
+        'textAlignVertical',
+        textAlignVertical,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      EnumProperty<TextDirection>(
+        'textDirection',
+        textDirection,
+        defaultValue: null,
+      ),
+    );
     properties
         .add(DoubleProperty('cursorWidth', cursorWidth, defaultValue: 2.0));
     properties
         .add(DoubleProperty('cursorHeight', cursorHeight, defaultValue: null));
-    properties.add(DiagnosticsProperty<Radius>('cursorRadius', cursorRadius,
-        defaultValue: null));
+    properties.add(
+      DiagnosticsProperty<Radius>(
+        'cursorRadius',
+        cursorRadius,
+        defaultValue: null,
+      ),
+    );
     properties
         .add(ColorProperty('cursorColor', cursorColor, defaultValue: null));
-    properties.add(DiagnosticsProperty<Brightness>(
-        'keyboardAppearance', keyboardAppearance,
-        defaultValue: null));
-    properties.add(DiagnosticsProperty<EdgeInsetsGeometry>(
-        'scrollPadding', scrollPadding,
-        defaultValue: const EdgeInsets.all(20.0)));
-    properties.add(FlagProperty('selectionEnabled',
+    properties.add(
+      DiagnosticsProperty<Brightness>(
+        'keyboardAppearance',
+        keyboardAppearance,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<EdgeInsetsGeometry>(
+        'scrollPadding',
+        scrollPadding,
+        defaultValue: const EdgeInsets.all(20.0),
+      ),
+    );
+    properties.add(
+      FlagProperty(
+        'selectionEnabled',
         value: selectionEnabled,
         defaultValue: true,
-        ifFalse: 'selection disabled'));
-    properties.add(DiagnosticsProperty<TextSelectionControls>(
-        'selectionControls', selectionControls,
-        defaultValue: null));
-    properties.add(DiagnosticsProperty<ScrollController>(
-        'scrollController', scrollController,
-        defaultValue: null));
-    properties.add(DiagnosticsProperty<ScrollPhysics>(
-        'scrollPhysics', scrollPhysics,
-        defaultValue: null));
+        ifFalse: 'selection disabled',
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<TextSelectionControls>(
+        'selectionControls',
+        selectionControls,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<ScrollController>(
+        'scrollController',
+        scrollController,
+        defaultValue: null,
+      ),
+    );
+    properties.add(
+      DiagnosticsProperty<ScrollPhysics>(
+        'scrollPhysics',
+        scrollPhysics,
+        defaultValue: null,
+      ),
+    );
   }
 }
 
@@ -924,7 +1039,8 @@ class _HashTagTextFieldState extends State<HashTagTextField>
   MaxLengthEnforcement get _effectiveMaxLengthEnforcement =>
       widget.maxLengthEnforcement ??
       LengthLimitingTextInputFormatter.getDefaultMaxLengthEnforcement(
-          Theme.of(context).platform);
+        Theme.of(context).platform,
+      );
 
   bool _isHovering = false;
 
@@ -1142,7 +1258,9 @@ class _HashTagTextFieldState extends State<HashTagTextField>
   }
 
   void _handleSelectionChanged(
-      TextSelection selection, SelectionChangedCause? cause) {
+    TextSelection selection,
+    SelectionChangedCause? cause,
+  ) {
     final bool willShowSelectionHandles = _shouldShowSelectionHandles(cause);
     if (willShowSelectionHandles != _showSelectionHandles) {
       setState(() {
@@ -1233,7 +1351,9 @@ class _HashTagTextFieldState extends State<HashTagTextField>
             cupertinoTheme.primaryColor.withOpacity(0.40);
         cursorRadius ??= const Radius.circular(2.0);
         cursorOffset = Offset(
-            iOSHorizontalOffset / MediaQuery.of(context).devicePixelRatio, 0);
+          iOSHorizontalOffset / MediaQuery.of(context).devicePixelRatio,
+          0,
+        );
         autocorrectionTextRectColor = selectionColor;
         break;
 
@@ -1249,7 +1369,9 @@ class _HashTagTextFieldState extends State<HashTagTextField>
             cupertinoTheme.primaryColor.withOpacity(0.40);
         cursorRadius ??= const Radius.circular(2.0);
         cursorOffset = Offset(
-            iOSHorizontalOffset / MediaQuery.of(context).devicePixelRatio, 0);
+          iOSHorizontalOffset / MediaQuery.of(context).devicePixelRatio,
+          0,
+        );
         break;
 
       case TargetPlatform.android:
@@ -1403,7 +1525,8 @@ class _HashTagTextFieldState extends State<HashTagTextField>
                       if (!_effectiveController.selection.isValid)
                         _effectiveController.selection =
                             TextSelection.collapsed(
-                                offset: _effectiveController.text.length);
+                          offset: _effectiveController.text.length,
+                        );
                       _requestKeyboard();
                     },
               child: child,
