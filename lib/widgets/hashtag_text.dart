@@ -1,5 +1,5 @@
-import 'package:beusocial/shared/forks/hashtag_mention/lib/hashtagable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:hashtagable/functions.dart';
 
 /// Show decorated tagged text only to be shown
 ///

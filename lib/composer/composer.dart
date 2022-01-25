@@ -1,5 +1,5 @@
-import 'package:beusocial/shared/forks/hashtag_mention/lib/detector/detector.dart';
 import 'package:flutter/material.dart';
+import 'package:hashtagable/detector/detector.dart';
 
 /// Add composing to hashtag decorated text.
 ///
