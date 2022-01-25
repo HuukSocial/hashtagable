@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:hashtagable/widgets/hashtag_text.dart';
 
 import 'detector/detector.dart';
 
@@ -7,9 +8,8 @@ import 'detector/detector.dart';
 bool hasHashTags(String value) {
   final decoratedTextColor = Colors.blue;
   final detector = Detector(
-    textStyle: TextStyle(),
-    decoratedStyle: TextStyle(color: decoratedTextColor),
-  );
+      textStyle: TextStyle(),
+      decoratedStyle: TextStyle(color: decoratedTextColor));
   final result = detector.getDetections(value);
   final detections = result
       .where((detection) => detection.style!.color == decoratedTextColor)
@@ -21,9 +21,8 @@ bool hasHashTags(String value) {
 List<String> extractHashTags(String value) {
   final decoratedTextColor = Colors.blue;
   final detector = Detector(
-    textStyle: TextStyle(),
-    decoratedStyle: TextStyle(color: decoratedTextColor),
-  );
+      textStyle: TextStyle(),
+      decoratedStyle: TextStyle(color: decoratedTextColor));
   final detections = detector.getDetections(value);
   final taggedDetections = detections
       .where((detection) => detection.style!.color == decoratedTextColor)
@@ -46,10 +45,10 @@ TextSpan getHashTagTextSpan({
   bool decorateAtSign = false,
 }) {
   final decorations = Detector(
-    decoratedStyle: decoratedStyle,
-    textStyle: basicStyle,
-    decorateAtSign: decorateAtSign,
-  ).getDetections(source);
+          decoratedStyle: decoratedStyle,
+          textStyle: basicStyle,
+          decorateAtSign: decorateAtSign)
+      .getDetections(source);
   if (decorations.isEmpty) {
     return TextSpan(text: source, style: basicStyle);
   } else {

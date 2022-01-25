@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hashtagable/detector/detector.dart';
 
@@ -19,7 +20,7 @@ class Composer {
   final TextRange composing;
   final int selection;
   final TextStyle decoratedStyle;
-  final Function(String, TextRange)? onDetectionTyped;
+  final ValueChanged<String>? onDetectionTyped;
 
   // TODO(Takahashi): Add test code for composing
   TextSpan getComposedTextSpan() {
@@ -34,61 +35,50 @@ class Composer {
           return TextSpan(
             children: [
               TextSpan(
-                text: TextRange(start: spanRange.start, end: composing.start)
-                    .textInside(sourceText),
-                style: spanStyle,
-              ),
+                  text: TextRange(start: spanRange.start, end: composing.start)
+                      .textInside(sourceText),
+                  style: spanStyle),
               TextSpan(
-                text: TextRange(start: composing.start, end: composing.end)
-                    .textInside(sourceText),
-                style: underlinedStyle,
-              ),
+                  text: TextRange(start: composing.start, end: composing.end)
+                      .textInside(sourceText),
+                  style: underlinedStyle),
               TextSpan(
-                text: TextRange(start: composing.end, end: spanRange.end)
-                    .textInside(sourceText),
-                style: spanStyle,
-              ),
+                  text: TextRange(start: composing.end, end: spanRange.end)
+                      .textInside(sourceText),
+                  style: spanStyle),
             ],
           );
         } else if (spanRange.start >= composing.start &&
             spanRange.end >= composing.end &&
             spanRange.start <= composing.end) {
-          return TextSpan(
-            children: [
-              TextSpan(
+          return TextSpan(children: [
+            TextSpan(
                 text: TextRange(start: spanRange.start, end: composing.end)
                     .textInside(sourceText),
-                style: underlinedStyle,
-              ),
-              TextSpan(
+                style: underlinedStyle),
+            TextSpan(
                 text: TextRange(start: composing.end, end: spanRange.end)
                     .textInside(sourceText),
-                style: spanStyle,
-              )
-            ],
-          );
+                style: spanStyle)
+          ]);
         } else if (spanRange.start <= composing.start &&
             spanRange.end <= composing.end &&
             spanRange.end >= composing.start) {
           return TextSpan(
             children: [
               TextSpan(
-                text: TextRange(start: spanRange.start, end: composing.start)
-                    .textInside(sourceText),
-                style: spanStyle,
-              ),
+                  text: TextRange(start: spanRange.start, end: composing.start)
+                      .textInside(sourceText),
+                  style: spanStyle),
               TextSpan(
-                text: TextRange(start: composing.start, end: spanRange.end)
-                    .textInside(sourceText),
-                style: underlinedStyle,
-              ),
+                  text: TextRange(start: composing.start, end: spanRange.end)
+                      .textInside(sourceText),
+                  style: underlinedStyle),
             ],
           );
         } else {
           return TextSpan(
-            text: spanRange.textInside(sourceText),
-            style: spanStyle,
-          );
+              text: spanRange.textInside(sourceText), style: spanStyle);
         }
       },
     ).toList();
@@ -112,7 +102,7 @@ class Composer {
   void callOnDetectionTyped() {
     final typingRange = typingDetection()?.range;
     if (typingRange != null) {
-      onDetectionTyped!(typingRange.textInside(sourceText), typingRange);
+      onDetectionTyped!(typingRange.textInside(sourceText));
     }
   }
 }

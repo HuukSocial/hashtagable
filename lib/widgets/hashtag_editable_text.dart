@@ -142,7 +142,7 @@ class HashTagEditableText extends EditableText {
           cursorHeight: cursorHeight,
         );
 
-  final Function(String, TextRange)? onDetectionTyped;
+  final ValueChanged<String>? onDetectionTyped;
 
   final VoidCallback? onDetectionFinished;
 
@@ -169,10 +169,9 @@ class HashTagEditableTextState extends EditableTextState {
   void initState() {
     super.initState();
     detector = Detector(
-      textStyle: widget.style,
-      decoratedStyle: widget.decoratedStyle,
-      decorateAtSign: widget.decorateAtSign,
-    );
+        textStyle: widget.style,
+        decoratedStyle: widget.decoratedStyle,
+        decorateAtSign: widget.decorateAtSign);
     widget.controller.addListener(() {
       _onValueUpdated.call();
     });

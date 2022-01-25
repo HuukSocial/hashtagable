@@ -18,12 +18,7 @@ const _norwegianLetters = 'åøæ';
 
 const _germanLetters = 'ÄäÖöÜüẞß';
 
-const _vietnameseLetters =
-    'AĂÂÁẮẤÀẰẦẢẲẨÃẴẪẠẶẬĐEÊÉẾÈỀẺỂẼỄẸỆIÍÌỈĨỊOÔƠÓỐỚÒỒỜỎỔỞÕỖỠỌỘỢUƯÚỨÙỪỦỬŨỮỤỰYÝỲỶỸỴAĂÂÁẮẤÀẰẦẢẲẨÃẴẪẠẶẬĐEÊÉẾÈỀẺỂẼỄẸỆIÍÌỈĨỊOÔƠÓỐỚÒỒỜỎỔỞÕỖỠỌỘỢUƯÚỨÙỪỦỬŨỮỤỰYÝỲỶỸỴAĂÂÁẮẤÀẰẦẢẲẨÃẴẪẠẶẬĐEÊÉẾÈỀẺỂẼỄẸỆIÍÌỈĨỊOÔƠÓỐỚÒỒỜỎỔỞÕỖỠỌỘỢUƯÚỨÙỪỦỬŨỮỤỰYÝỲỶỸỴAĂÂÁẮẤÀẰẦẢẲẨÃẴẪẠẶẬĐEÊÉẾÈỀẺỂẼỄẸỆIÍÌỈĨỊOÔƠÓỐỚÒỒỜỎỔỞÕỖỠỌỘỢUƯÚỨÙỪỦỬŨỮỤỰYÝỲỶỸỴAĂÂÁẮẤÀẰẦẢẲẨÃẴẪẠẶẬĐEÊÉẾÈỀẺỂẼỄẸỆIÍÌỈĨỊOÔƠÓỐỚÒỒỜỎỔỞÕỖỠỌỘỢUƯÚỨÙỪỦỬŨỮỤỰYÝỲỶỸỴAĂÂÁẮẤÀẰẦẢẲẨÃẴẪẠẶẬĐEÊÉẾÈỀẺỂẼỄẸỆIÍÌỈĨỊOÔƠÓỐỚÒỒỜỎỔỞÕỖỠỌỘỢUƯÚỨÙỪỦỬŨỮỤỰYÝỲỶỸỴ';
-
-final _vietnameseLettersLowerCase = _vietnameseLetters.toLowerCase();
-
-final hashTagContentLetters = _symbols +
+const hashTagContentLetters = _symbols +
     _numbers +
     _englishLetters +
     _japaneseLetters +
@@ -32,20 +27,18 @@ final hashTagContentLetters = _symbols +
     _arabicLetters +
     _thaiLetters +
     _norwegianLetters +
-    _vietnameseLetters +
-    _vietnameseLettersLowerCase +
     _germanLetters;
 
 /// Regular expression to extract hashtag from text
 ///
 /// Supports English, Japanese, Korean, Spanish, Arabic, and Thai
 final hashTagRegExp = RegExp(
-  '(?!\\n)(?:^|\\s)(#([$hashTagContentLetters]+))',
+  "(?!\\n)(?:^|\\s)(#([$hashTagContentLetters]+))",
   multiLine: true,
 );
 
 /// Regular expression when you select decorateAtSign
 final hashTagAtSignRegExp = RegExp(
-  '(?!\\n)(?:^|\\s)([#@]([$hashTagContentLetters]+))',
+  "(?!\\n)(?:^|\\s)([#@]([$hashTagContentLetters]+))",
   multiLine: true,
 );

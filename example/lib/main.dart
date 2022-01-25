@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
                   keyboardType: TextInputType.multiline,
 
                   /// Called when detection (word starts with #, or # and @) is being typed
-                  onDetectionTyped: (text, range) {
+                  onDetectionTyped: (text) {
                     print(text);
                   },
 
